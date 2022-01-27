@@ -1,10 +1,10 @@
 import Signup from './components/Signup';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.css';
 import Login from './components/Login';
 import * as React from 'react'
 import TodoList from './components/TodoList';
 import axios from 'axios';
+import Dashboard from './components/Dashboard';
 
 
 export const UserContext = React.createContext({ user: null, setUser: () => { }, })
@@ -32,7 +32,9 @@ function App() {
               <Signup />
             </Route>
             <Route path="/todos">
-              <TodoList />
+              <Dashboard>
+                <TodoList />
+              </Dashboard>
             </Route>
           </Switch>
         </div>

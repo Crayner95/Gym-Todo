@@ -35,17 +35,19 @@ export default function SignUp() {
         const signUpInfo = {
             firstName: data.get('firstName'),
             lastName: data.get('lastName'),
-            phone: data.get('phone'),
             username: data.get('email'),
             password: data.get('password'),
         };
+        try {
+            const response = await axios.post('/api/register', signUpInfo)
+            console.log(response.data);
+            userContext.setUser(response.data)
+            history.push('/todos');
+        }
+        catch (err) {
 
-        const response = await axios.post('/api/register', signUpInfo)
-        console.log(response.data);
-        userContext.setUser(response.data)
-        history.push('/todos');
-
-        // alert(err.response.data.message);
+            alert(err.response.data.message);
+        }
 
     };
 

@@ -1,13 +1,20 @@
 import Todo from './Todo'
-import 'bootstrap/dist/css/bootstrap.css';
+import Button from '@mui/material/Button';
 import * as React from 'react'
 import Form from './Form';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { UserContext } from '../App';
+import { useContext } from 'react'
+import { useHistory } from 'react-router';
+import { List } from '@mui/material';
+import { Paper } from '@mui/material';
 
 
 export default function TodoList() {
     const [todos, setTodos] = useState([]);
+    const history = useHistory();
+    const { user, setUser } = useContext(UserContext)
 
 
     const todoLists = () => {
@@ -37,19 +44,24 @@ export default function TodoList() {
     }
 
     //Check
-    const editTodo = async (_id, note) => {
-        const updatedTodo = await axios.put(`/api/todos/${_id}`, { note: note });
+    const editTodo = async (_id, note, checked) => {
+        const updatedTodo = await axios.put(`/api/todos/${_id}`, { note: note, isChecked: checked });
         const allTodos = await axios.get(`/api/todos`);
         setTodos(allTodos.data);
     }
 
+
     const listOfTodos = todos.map((todo) => <Todo
-        todo={todo} deleteTodo={deleteTodo} key={todo.id} editTodo={editTodo} />)
+        todo={todo} deleteTodo={deleteTodo} key={todo._id} editTodo={editTodo} />)
 
     return (
         <div>
             <Form addTodo={addTodo} />
-            {listOfTodos}
+            <Paper>
+                <List >
+                    {listOfTodos}
+                </List >
+            </Paper>
         </div>
     )
 }

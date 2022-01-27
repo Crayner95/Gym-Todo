@@ -2,6 +2,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Todo from './Todo';
+import { TextField, Box } from '@mui/material';
+
 
 export default function Form({ addTodo }) {
     const [note, setNote] = useState('');
@@ -19,16 +21,18 @@ export default function Form({ addTodo }) {
     return (
         <React.Fragment>
             <form onSubmit={handleSubmit}>
-                <div className="input-group w-25 m-auto mt-5">
-                    <input
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <TextField
+                        size='small'
+                        fullWidth
                         type="text"
                         value={note}
                         onChange={handleNewTodo}
                         className="form-control"
-                        placeholder="What's missing?"
+                        placeholder="Things I need to do"
                     />
-                    <button className="btn btn-outline-secondary" type="submit" id="button">Add</button>
-                </div>
+                    <Button variant="outlined" type="submit" id="button">Add</Button>
+                </Box>
             </form>
             <div>
                 <ul>
