@@ -30,13 +30,19 @@ export default function Todo({ todo, deleteTodo, editTodo }) {
         setEdit(false)
     };
 
+    const editMode = () => {
+        setEdit(true);
+        setChecked(todo.isChecked);
+        setEditText(todo.note);
+    }
+
     return (
 
         <ListItem
             secondaryAction={
                 <div>
                     {!edit && (<IconButton edge="end" aria-label="comments">
-                        <BiMessageEdit onClick={() => setEdit(true)} />
+                        <BiMessageEdit onClick={editMode} />
                     </IconButton>)}
                     {edit && (<IconButton edge="end" aria-label="comments">
                         <MdSaveAlt onClick={updateTodo} />
@@ -53,7 +59,7 @@ export default function Todo({ todo, deleteTodo, editTodo }) {
                 <ListItemIcon>
                     <Checkbox
                         edge="start"
-                        checked={checked}
+                        checked={todo.isChecked}
                         onChange={handleCheck}
 
                     />
